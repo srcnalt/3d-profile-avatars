@@ -41,7 +41,7 @@ export const hideHands = (nodes: Nodes) => {
 export const correctMaterials = (materials: Materials) => {
   Object.values(materials).forEach((material: any) => {
     // applying LinearFilter to texture to avoid  pixellization
-    material.map.minFilter = LinearFilter;
+    if (material.map) material.map.minFilter = LinearFilter;
 
     // support transparency
     if (material) material.depthWrite = true;
