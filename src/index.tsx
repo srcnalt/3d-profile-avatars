@@ -8,7 +8,7 @@ interface AvatarViewProps {
   style: React.CSSProperties;
 }
 
-export function AvatarView({ url, style }: AvatarViewProps) {
+export default function AvatarView({ url, style }: AvatarViewProps) {
   return (
     <Canvas style={style} camera={{ fov: 40, position: [0, 0, 0.6] }}>
       <Suspense fallback={null}>
