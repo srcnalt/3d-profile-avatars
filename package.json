@@ -35,6 +35,12 @@
     },
     "name": "@sarge/avatar-view",
     "author": "Sercan (Sarge) Altundas",
+    "keywords": [
+        "avatar",
+        "profile photo",
+        "ready player me",
+        "3d profile image"
+    ],
     "module": "dist/avatar-view.esm.js",
     "devDependencies": {
         "@size-limit/preset-small-lib": "^4.5.5",
