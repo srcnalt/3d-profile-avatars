@@ -21,8 +21,6 @@ export default function useHeadMovement(
   useEffect(() => {
     if (!enabled) return;
 
-    debugger
-
     headMesh = (nodes.Wolf3D_Head || nodes.Wolf3D_Avatar) as SkinnedMesh;
 
     if (headMesh.morphTargetDictionary && headMesh.morphTargetInfluences) {
