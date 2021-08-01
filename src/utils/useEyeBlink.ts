@@ -21,7 +21,9 @@ export default function useHeadMovement(
   useEffect(() => {
     if (!enabled) return;
 
-    headMesh = nodes.Wolf3D_Head as SkinnedMesh;
+    debugger
+
+    headMesh = (nodes.Wolf3D_Head || nodes.Wolf3D_Avatar) as SkinnedMesh;
 
     if (headMesh.morphTargetDictionary && headMesh.morphTargetInfluences) {
       morphIndex = headMesh.morphTargetDictionary.eyesClosed;
