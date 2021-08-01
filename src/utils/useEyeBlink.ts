@@ -1,7 +1,7 @@
 import { Nodes } from './utils';
 import { useEffect } from 'react';
-import { SkinnedMesh } from 'three';
 import { useFrame } from '@react-three/fiber';
+import { MeshStandardMaterial, SkinnedMesh } from 'three';
 
 let blinkTime: number = 999;
 let timeout: NodeJS.Timeout;
@@ -14,22 +14,23 @@ const setNextBlink = () => {
   timeout = setTimeout(setNextBlink, Math.random() * 5000 + 2000);
 };
 
-export default function useHeadMovement(
+export default function useEyeBlink(
   enabled: boolean | undefined,
   nodes: Nodes
 ) {
   useEffect(() => {
     if (!enabled) return;
 
-    debugger
-
     headMesh = (nodes.Wolf3D_Head || nodes.Wolf3D_Avatar) as SkinnedMesh;
+
+    const material = headMesh.material as MeshStandardMaterial;
+    material.morphTargets = true;
 
     if (headMesh.morphTargetDictionary && headMesh.morphTargetInfluences) {
       morphIndex = headMesh.morphTargetDictionary.eyesClosed;
     }
 
-    timeout = setTimeout(setNextBlink, 3000);
+    timeout = setTimeout(setNextBlink, 1000);
 
     return () => {
       clearTimeout(timeout);
