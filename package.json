@@ -62,6 +62,7 @@
         "@react-three/drei": "^7.2.2",
         "@react-three/fiber": "7.0.5",
         "@types/three": "^0.130.1",
-        "three": "^0.130.1"
+        "three": "^0.130.1",
+        "three-stdlib": "^2.4.0"
     }
 }
