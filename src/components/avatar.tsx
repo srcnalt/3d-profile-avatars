@@ -2,27 +2,36 @@ import React, { useEffect } from 'react';
 import { Object3D, Vector3 } from 'three';
 import { GLTFLoader } from 'three-stdlib';
 import { useGLTF } from '@react-three/drei';
+import useEyeBlink from '../utils/useEyeBlink';
 import useHeadMovement from '../utils/useHeadMovement';
 import { dispose, useGraph, useLoader } from '@react-three/fiber';
 import { correctMaterials, hideHands, isSkinnedMesh } from '../utils/utils';
 
 interface AvatarProps {
   url: string;
-  reset?: boolean;
+  eyeBlink?: boolean;
+  headMovement?: boolean;
   onLoaded?: () => void;
 }
 
 const position = new Vector3(0, -0.6, 0);
 
-export default function Avatar({ url, onLoaded }: AvatarProps) {
+export default function Avatar({
+  url,
+  eyeBlink,
+  headMovement,
+  onLoaded,
+}: AvatarProps) {
   const { scene } = useGLTF(url);
   const { nodes, materials } = useGraph(scene);
 
-  hideHands(nodes);
-  useHeadMovement(nodes);
-  correctMaterials(materials);
+  useEyeBlink(eyeBlink, nodes);
+  useHeadMovement(headMovement, nodes);
 
   useEffect(() => {
+    hideHands(nodes);
+    correctMaterials(materials);
+
     if (onLoaded) onLoaded();
 
     return () => {

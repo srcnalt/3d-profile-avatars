@@ -5,16 +5,25 @@ import { Environment, OrbitControls } from '@react-three/drei';
 
 interface AvatarViewProps {
   url: string;
+  eyeBlink?: boolean;
+  headMovement?: boolean;
+  rotateAvatar?: boolean;
   style: React.CSSProperties;
 }
 
-export default function AvatarView({ url, style }: AvatarViewProps) {
+export default function AvatarView({
+  url,
+  style,
+  rotateAvatar,
+  eyeBlink,
+  headMovement,
+}: AvatarViewProps) {
   return (
     <Canvas style={style} camera={{ fov: 40, position: [0, 0, 0.6] }}>
       <Suspense fallback={null}>
         <Environment preset="sunset" />
-        <OrbitControls enablePan={false} enableZoom={false} />
-        <Avatar url={url} />
+        {rotateAvatar && <OrbitControls enablePan={false} enableZoom={false} />}
+        <Avatar url={url} eyeBlink={eyeBlink} headMovement={headMovement} />
       </Suspense>
     </Canvas>
   );
