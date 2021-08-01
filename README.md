@@ -2,7 +2,9 @@
 
 3D Profile Photo using Ready Player Me half-body avatars.
 
-![](./images/example.gif)
+
+![](./images/1.gif) ![](./images/2.gif)
+![](./images/3.gif) ![](./images/4.gif)
 
 ## Install
 
