@@ -3,30 +3,35 @@ import { useEffect } from 'react';
 import { lerp, mapRange, Nodes } from './utils';
 import { useFrame, useThree } from '@react-three/fiber';
 
+const rad = Math.PI / 180;
+const eyeRotationOffsetX = 90 * rad;
+
 let reset: boolean = false;
-let resetTimeout: NodeJS.Timeout;
+let timeout: NodeJS.Timeout;
 
-export default function useHeadMovement(nodes: Nodes) {
-  const rad = Math.PI / 180;
-  const currentPos = new Vector2(0, 0);
-  const targetPos = new Vector2(0, 0);
+const targetPos = new Vector2(0, 0);
+const currentPos = new Vector2(0, 0);
 
-  const eyeRotationOffsetX = 90 * rad;
+const setResetTrue = () => {
+  timeout = setTimeout(() => {
+    reset = true;
+  }, 1000);
+};
 
-  const setResetTrue = () => {
-    resetTimeout = setTimeout(() => {
-      reset = true;
-    }, 1000);
-  };
+const setResetFalse = () => {
+  clearTimeout(timeout);
+  reset = false;
+};
 
-  const setResetFalse = () => {
-    clearTimeout(resetTimeout);
-    reset = false;
-  };
-
+export default function useHeadMovement(
+  enabled: boolean | undefined,
+  nodes: Nodes
+) {
   const { gl } = useThree();
 
   useEffect(() => {
+    if (!enabled) return;
+
     gl.domElement.addEventListener('mouseleave', setResetTrue);
     gl.domElement.addEventListener('mouseenter', setResetFalse);
 
@@ -34,9 +39,11 @@ export default function useHeadMovement(nodes: Nodes) {
       gl.domElement.removeEventListener('mouseleave', setResetTrue);
       gl.domElement.removeEventListener('mouseenter', setResetFalse);
     };
-  }, [gl.domElement]);
+  }, [gl.domElement, enabled]);
 
   useFrame(state => {
+    if (!enabled) return;
+
     const cameraRotation = Math.abs(state.camera.rotation.z);
 
     if (!reset && cameraRotation < 0.2) {
@@ -49,7 +56,7 @@ export default function useHeadMovement(nodes: Nodes) {
     currentPos.x = lerp(currentPos.x, targetPos.x);
     currentPos.y = lerp(currentPos.y, targetPos.y);
 
-    nodes.Neck.rotation.x = currentPos.x;
+    nodes.Neck.rotation.x = currentPos.x + 0.1;
     nodes.Neck.rotation.y = currentPos.y;
 
     nodes.Head.rotation.x = currentPos.x * 2;
