@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
 import { Object3D, Vector3 } from 'three';
-import { GLTFLoader } from 'three-stdlib';
 import { useGLTF } from '@react-three/drei';
 import useEyeBlink from '../utils/useEyeBlink';
 import useHeadMovement from '../utils/useHeadMovement';
-import { dispose, useGraph, useLoader } from '@react-three/fiber';
+import { dispose, useGraph } from '@react-three/fiber';
 import { correctMaterials, hideHands, isSkinnedMesh } from '../utils/utils';
 
 interface AvatarProps {
@@ -35,8 +34,6 @@ export default function Avatar({
     if (onLoaded) onLoaded();
 
     return () => {
-      useLoader.clear(GLTFLoader, url);
-
       Object.values(materials).forEach(dispose);
 
       Object.values(nodes)
