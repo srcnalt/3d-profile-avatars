@@ -1,6 +1,6 @@
 # Avatar View [![npm version](https://badge.fury.io/js/%40sarge%2Favatar-view.svg)](https://badge.fury.io/js/%40sarge%2Favatar-view)
 
-3D Profile Avatar using Ready Player Me
+Add your website a **3D Profile Avatar** using **Ready Player Me** with a single line of code!
 
 Test it on CodeSandbox: https://codesandbox.io/s/avatar-view-wrn2u
 
@@ -8,9 +8,6 @@ Test it on CodeSandbox: https://codesandbox.io/s/avatar-view-wrn2u
 
 ![](./images/1.gif) ![](./images/2.gif)
 ![](./images/3.gif) ![](./images/4.gif)
-
-## Test it Online
-- Codesandbox: https://codesandbox.io/s/avatar-view-wrn2u
 
 ## Install
 
