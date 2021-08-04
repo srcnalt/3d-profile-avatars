@@ -9,6 +9,9 @@ Test it on CodeSandbox: https://codesandbox.io/s/avatar-view-wrn2u
 ![](./images/1.gif) ![](./images/2.gif)
 ![](./images/3.gif) ![](./images/4.gif)
 
+## Test it Online
+- Codesandbox: https://codesandbox.io/s/avatar-view-wrn2u
+
 ## Install
 
 - Run in cli `npm i @sarge/avatar-view`
