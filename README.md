@@ -1,4 +1,4 @@
-# Avatar View [![npm version](https://badge.fury.io/js/%40sarge%2Favatar-view.svg)](https://badge.fury.io/js/%40sarge%2Favatar-view)
+# 3D Profile Avatars [![npm version](https://badge.fury.io/js/%40sarge%2Favatar-view.svg)](https://badge.fury.io/js/%40sarge%2Favatar-view)
 
 Add your website a **3D Profile Avatar** using **Ready Player Me** with a single line of code!
 
