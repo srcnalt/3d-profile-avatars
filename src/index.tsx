@@ -9,6 +9,8 @@ interface AvatarViewProps {
   headMovement?: boolean;
   rotateAvatar?: boolean;
   style?: React.CSSProperties;
+  environment?: string;
+  fallback?: ReactNode;
 }
 
 const defaultStyle = {
@@ -24,14 +26,16 @@ export default function AvatarView({
   rotateAvatar,
   eyeBlink,
   headMovement,
+  environment = 'sunset',
+  fallback,
 }: AvatarViewProps) {
   return (
     <Canvas
       style={style || defaultStyle}
       camera={{ fov: 40, position: [0, 0, 0.6] }}
     >
-      <Suspense fallback={null}>
-        <Environment preset="sunset" />
+      <Suspense fallback={fallback || null}>
+        {environment && <Environment preset={environment} />}
         {rotateAvatar && <OrbitControls enablePan={false} enableZoom={false} />}
         <Avatar url={url} eyeBlink={eyeBlink} headMovement={headMovement} />
       </Suspense>
