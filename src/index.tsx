@@ -1,7 +1,12 @@
 import React, { Suspense } from 'react';
 import Avatar from './components/avatar';
 import { Canvas } from '@react-three/fiber';
-import { Environment, OrbitControls } from '@react-three/drei';
+import { Environment, OrbitControls, Html, useProgress } from '@react-three/drei';
+
+function Loader() {
+  const { progress } = useProgress()
+  return <Html center>{progress} % loaded</Html>
+}
 
 interface AvatarViewProps {
   url: string;
@@ -27,7 +32,7 @@ export default function AvatarView({
   eyeBlink,
   headMovement,
   environment = 'sunset',
-  fallback,
+  fallback = <Loader />,
 }: AvatarViewProps) {
   return (
     <Canvas
