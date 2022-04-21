@@ -204,8 +204,7 @@ function AvatarView(_ref) {
       headMovement = _ref.headMovement,
       _ref$environment = _ref.environment,
       environment = _ref$environment === void 0 ? 'sunset' : _ref$environment,
-      _ref$fallback = _ref.fallback,
-      fallback = _ref$fallback === void 0 ? React__default.createElement(Loader, null) : _ref$fallback;
+      fallback = _ref.fallback;
   return React__default.createElement(fiber.Canvas, {
     style: style || defaultStyle,
     camera: {
@@ -213,7 +212,7 @@ function AvatarView(_ref) {
       position: [0, 0, 0.6]
     }
   }, React__default.createElement(React.Suspense, {
-    fallback: fallback || null
+    fallback: fallback || React__default.createElement(Loader, null)
   }, environment && React__default.createElement(drei.Environment, {
     preset: environment
   }), rotateAvatar && React__default.createElement(drei.OrbitControls, {
