@@ -61,3 +61,11 @@ export default function App() {
 - **headMovement** (*boolean | undefined*): 
 
     Enables head and eye follow of the cursor when avatar is facing the screen and cursor is moving on the canvas. When cursor is out of the canvas, avatar goes back to initial stance. This parameter is optional.
+
+- **fallback** (*React.ReactNode | undefined*): 
+
+    Fallback for Suspense to show while loading the avatar. In [components/loader.tsx](./src/components/loader.tsx) you can see the default one. This parameter is optional.
+
+- **environment** (*PresetsType | undefined*): 
+
+    Enables the use of a environment preset. See [environments](https://github.com/pmndrs/drei#environment) and its [presets](https://github.com/pmndrs/drei/blob/master/src/helpers/environment-assets.ts) for more information. This parameter is optional.

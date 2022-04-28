@@ -1,14 +1,22 @@
+import type { CSSProperties, SuspenseProps } from 'react';
+import type { PresetsType } from '@react-three/drei/helpers/environment-assets';
 import React, { Suspense } from 'react';
 import Avatar from './components/avatar';
+import Loader from './components/loader';
 import { Canvas } from '@react-three/fiber';
-import { Environment, OrbitControls } from '@react-three/drei';
+import {
+  Environment,
+  OrbitControls,
+} from '@react-three/drei';
 
 interface AvatarViewProps {
   url: string;
   eyeBlink?: boolean;
   headMovement?: boolean;
   rotateAvatar?: boolean;
-  style?: React.CSSProperties;
+  style?: CSSProperties;
+  environment?: PresetsType;
+  fallback?: Pick<SuspenseProps, 'fallback'>;
 }
 
 const defaultStyle = {
@@ -18,20 +26,24 @@ const defaultStyle = {
   borderRadius: '100%',
 };
 
+export { Loader };
+
 export default function AvatarView({
   url,
   style,
   rotateAvatar,
   eyeBlink,
   headMovement,
+  environment = 'sunset',
+  fallback,
 }: AvatarViewProps) {
   return (
     <Canvas
       style={style || defaultStyle}
       camera={{ fov: 40, position: [0, 0, 0.6] }}
     >
-      <Suspense fallback={null}>
-        <Environment preset="sunset" />
+      <Suspense fallback={fallback || <Loader />}>
+        {environment && <Environment preset={environment} />}
         {rotateAvatar && <OrbitControls enablePan={false} enableZoom={false} />}
         <Avatar url={url} eyeBlink={eyeBlink} headMovement={headMovement} />
       </Suspense>
