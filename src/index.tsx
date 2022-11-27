@@ -9,6 +9,8 @@ interface AvatarViewProps {
   headMovement?: boolean;
   rotateAvatar?: boolean;
   style?: React.CSSProperties;
+  camera?: Object;
+  showHands?: boolean;
 }
 
 const defaultStyle = {
@@ -17,6 +19,8 @@ const defaultStyle = {
   backgroundColor: 'orange',
   borderRadius: '100%',
 };
+const defaultCamera = 
+  { fov: 40, position: [0, 0, 0.6] }
 
 export default function AvatarView({
   url,
@@ -24,16 +28,18 @@ export default function AvatarView({
   rotateAvatar,
   eyeBlink,
   headMovement,
+  camera,
+  showHands
 }: AvatarViewProps) {
   return (
     <Canvas
       style={style || defaultStyle}
-      camera={{ fov: 40, position: [0, 0, 0.6] }}
+      camera={camera || defaultCamera}
     >
       <Suspense fallback={null}>
         <Environment preset="sunset" />
         {rotateAvatar && <OrbitControls enablePan={false} enableZoom={false} />}
-        <Avatar url={url} eyeBlink={eyeBlink} headMovement={headMovement} />
+        <Avatar url={url} eyeBlink={eyeBlink} headMovement={headMovement} showHands={showHands} />
       </Suspense>
     </Canvas>
   );

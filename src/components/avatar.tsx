@@ -11,6 +11,7 @@ interface AvatarProps {
   eyeBlink?: boolean;
   headMovement?: boolean;
   onLoaded?: () => void;
+  showHands: boolean;
 }
 
 const position = new Vector3(0, -0.6, 0);
@@ -20,6 +21,7 @@ export default function Avatar({
   eyeBlink,
   headMovement,
   onLoaded,
+  showHands
 }: AvatarProps) {
   const { scene } = useGLTF(url);
   const { nodes, materials } = useGraph(scene);
@@ -28,7 +30,9 @@ export default function Avatar({
   useHeadMovement(headMovement, nodes);
 
   useEffect(() => {
-    hideHands(nodes);
+    if (!showHands) {
+      hideHands(nodes);
+    }
     correctMaterials(materials);
 
     if (onLoaded) onLoaded();
