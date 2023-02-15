@@ -11,13 +11,14 @@ let headMesh: SkinnedMesh;
 let morphIndex: number = 0;
 
 function update(delta: number) {
-  if (blinkTime < 2 && headMesh.morphTargetInfluences) {
-    let value = Math.abs(Math.sin((blinkTime * Math.PI) / 2));
-    blinkTime += delta * 10;
-    headMesh.morphTargetInfluences[morphIndex] = value;
-  } else if (headMesh.morphTargetInfluences && headMesh.morphTargetInfluences[morphIndex] !== 0) {
-    headMesh.morphTargetInfluences[morphIndex] = 0;
-    timeout = setTimeout(BlinkEvent.dispatch, Math.random() * 5000 + 2000);
+  if(headMesh.morphTargetInfluences){
+    if (blinkTime < 2) {
+      let value = Math.abs(Math.sin((blinkTime * Math.PI) / 2));
+      blinkTime += delta * 10;
+      headMesh.morphTargetInfluences[morphIndex] = value;
+    } else {
+      headMesh.morphTargetInfluences[morphIndex] = 0;
+    }
   }
 }
 
@@ -40,7 +41,6 @@ export default function useEyeBlink(
     }
 
     BlinkEvent.subscribe(triggerBlink);
-    BlinkEvent.dispatch();
 
     return () => {
       BlinkEvent.unsubscribe(triggerBlink);

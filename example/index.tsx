@@ -1,6 +1,7 @@
 import React = require('react');
 import { createRoot } from 'react-dom';
 import AvatarView from './..';
+import { BlinkEvent } from '../src/events/blink-event';
 
 const rootElement = document.getElementById('root');
 const root = createRoot(rootElement!);
@@ -14,5 +15,6 @@ root.render(
       eyeBlink
       headMovement
     />
+    <button onClick={BlinkEvent.dispatch}>Blink</button>
   </div>
 );
