@@ -1,34 +1,40 @@
 import React, { useEffect } from 'react';
-import { Object3D, Vector3 } from 'three';
 import { useGLTF } from '@react-three/drei';
-import useEyeBlink from '../utils/useEyeBlink';
-import useHeadMovement from '../utils/useHeadMovement';
 import { dispose, useGraph } from '@react-three/fiber';
-import { correctMaterials, hideHands, isSkinnedMesh } from '../utils/utils';
+import useBlinkEyes from '../utils/useBlinkEyes';
+import useExpressions from '../utils/useExpressions';
+import useFaceTracking from '../utils/useFaceTracking';
+import useFollowCursor from '../utils/useFollowCursor';
+import { AvatarOptions3D, correctMaterials, isSkinnedMesh, Transform } from '../utils/utils';
 
 interface AvatarProps {
   url: string;
-  eyeBlink?: boolean;
-  headMovement?: boolean;
+  options?: AvatarOptions3D;
   onLoaded?: () => void;
 }
 
-const position = new Vector3(0, -0.6, 0);
+const defaultTransform: Transform = {
+  position: [0, -0.625, 0],
+  rotation: [0, 0.1, 0],
+  scale: [1, 1, 1],
+} 
 
 export default function Avatar({
   url,
-  eyeBlink,
-  headMovement,
+  options,
   onLoaded,
 }: AvatarProps) {
   const { scene } = useGLTF(url);
   const { nodes, materials } = useGraph(scene);
 
-  useEyeBlink(eyeBlink, nodes);
-  useHeadMovement(headMovement, nodes);
+  const transform = options?.transform;
+
+  useBlinkEyes(options?.blinkEyes);
+  useExpressions(nodes);
+  useFollowCursor(options?.followCursor, nodes);
+  useFaceTracking(options?.faceTracking, nodes);
 
   useEffect(() => {
-    hideHands(nodes);
     correctMaterials(materials);
 
     if (onLoaded) onLoaded();
@@ -43,13 +49,8 @@ export default function Avatar({
   }, [materials, nodes, url, onLoaded]);
 
   return (
-    <group position={position}>
-      <primitive key="armature" object={nodes.Hips} />
-      {Object.values(nodes)
-        .filter(isSkinnedMesh)
-        .map((node: Object3D) => (
-          <primitive key={node.name} object={node} receiveShadow castShadow />
-        ))}
+    <group {...defaultTransform} {...transform}>
+      <primitive object={scene} />
     </group>
   );
 }

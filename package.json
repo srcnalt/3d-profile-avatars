@@ -1,5 +1,5 @@
 {
-  "version": "0.2.13",
+  "version": "0.3.0",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -11,7 +11,7 @@
     "node": ">=10"
   },
   "scripts": {
-    "start": "tsdx watch",
+    "start": "rm dist && tsdx watch",
     "build": "tsdx build",
     "test": "tsdx test --passWithNoTests",
     "lint": "tsdx lint",
@@ -28,7 +28,7 @@
     }
   },
   "prettier": {
-    "printWidth": 80,
+    "printWidth": 160,
     "semi": true,
     "singleQuote": true,
     "trailingComma": "es5"
@@ -42,13 +42,16 @@
     "@types/react-dom": "^18.0.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "rimraf": "^4.1.2",
     "tsdx": "^0.14.1",
     "tslib": "^2.4.0",
-    "typescript": "^4.8.2"
+    "typescript": "^4.9.5"
   },
   "dependencies": {
-    "@react-three/drei": "^9.28.2",
-    "@react-three/fiber": "^8.7.2",
+    "@mediapipe/camera_utils": "^0.3.1675466862",
+    "@mediapipe/face_mesh": "^0.4.1633559619",
+    "@react-three/drei": "^9.56.25",
+    "@react-three/fiber": "^8.11.2",
     "@types/three": "^0.144.0",
     "three": "^0.144.0"
   }

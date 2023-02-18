@@ -23,10 +23,7 @@ const setResetFalse = () => {
   reset = false;
 };
 
-export default function useHeadMovement(
-  enabled: boolean | undefined,
-  nodes: Nodes
-) {
+export default function useFollowCursor(enabled: boolean | undefined, nodes: Nodes) {
   const { gl } = useThree();
 
   useEffect(() => {

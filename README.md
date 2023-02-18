@@ -11,7 +11,7 @@ Test it on CodeSandbox: https://codesandbox.io/s/avatar-view-wrn2u
 
 ## Install
 
-- Run in cli `npm i @sarge/avatar-view`
+- Run `npm i @sarge/avatar-view`
 
 ## Example
 
@@ -23,41 +23,77 @@ Test it on CodeSandbox: https://codesandbox.io/s/avatar-view-wrn2u
 
 - Add `<AvatarView url={url}/>` component yo your return content 
 
-```jsx
+```tsx
 // if you copy the code here dont forget to remove the three dots
 
 import AvatarView from "@sarge/avatar-view";
-...
-const url = "https://d1a370nemizbjq.cloudfront.net/511ad04f-8b4e-4565-931d-94ecba87f3ac.glb";
 
-export default function App() {
-  return (
-    <div>
-        ...
-        <AvatarView url={url}/>
-        ...
-    </div>
-  );
+const url = "https://models.readyplayer.me/62ea7bc28a6d28ec134bbcce.glb";
+
+export default function App()
+{
+  return <AvatarView url={url}/>
 }
+```
+
+If you are using `Next.js` make sure to import the component dynamically using `ssr: false` parameter.
+
+```tsx
+const AvatarView = dynamic(() => import("@sarge/avatar-view"), {
+  ssr: false
+});
 ```
 
 ## Parameters of AvatarView
 - **url** (*string*): 
 
-    Url of the Ready Player Me avatar to load. Must be half-body avatar url. This parameter is mandatory.
+    Url of the Ready Player Me avatar to load. This parameter is mandatory.
 
-- **style** (*React.CSSProperties | undefined*): 
+- **type** (*"2D" | "3D"*):
 
-    Style of the avatar view canvas. Here you can change the border style, background color or image, width, height and other style options. This parameter is optional.
+    Type of the avatar 2D image or 3D model avatar.
 
-- **rotateAvatar** (*boolean | undefined*): 
+- **style** (*React.CSSProperties*) [optional]: 
 
-    Enables use of orbit controls for the 3D scene, which helps you rotate the avatar via mouse drag. This parameter is optional.
+    Style of the avatar view canvas. Here you can change the border style, background color or image, width, height and other style options.
 
-- **eyeBlink** (*boolean | undefined*): 
+- **options3d** (*AvatarOptions3D*) [optional]:
 
-    Enables eye blinking in random intervals. This parameter is optional.
+    Options for `type` "3D" avatar.
+
+    - **camera** (*CameraOptions*) [optional]: 
     
-- **headMovement** (*boolean | undefined*): 
+        Ortographic camera options.
 
-    Enables head and eye follow of the cursor when avatar is facing the screen and cursor is moving on the canvas. When cursor is out of the canvas, avatar goes back to initial stance. This parameter is optional.
+    - **transform** (*Transform*) [optional]:
+
+        Position, rotation and scale of the 3D avatar.
+
+    - **blinkEyes** (*boolean*) [optional]:
+
+        Enables eye blinking in random intervals.
+
+    - **followCursor** (*boolean*) [optional]: 
+    
+        When enabled, head and eyes of the avatar will follow of the cursor. Cursor must be moving on the 3D canvas. When cursor is out of the canvas, avatar goes back to initial stance.
+
+    - **orbitControl** (*boolean*) [optional]:
+    
+        Enables use of orbit controls for the 3D scene, which helps you rotate the avatar via mouse drag.
+
+    - **faceTracking** (*boolean*) [optional]:
+
+        *Experimental feature* for head and face tracking. Requires camera access. 
+
+
+- **options3d** (*AvatarOptions3D*) [optional]:
+
+    Options for `type` "2D" avatar.
+
+    - **scale** (*Vector2*) [optional]: 
+    
+        Scale of the 2D avatar image.
+
+    - **position** (*Vector2*) [optional]: test
+
+        Position of the 2D avatar in pixels.
