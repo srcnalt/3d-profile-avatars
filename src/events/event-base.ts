@@ -1,6 +1,5 @@
 export default abstract class EventBase {
-    static eventName: string;
-    static subscribe: (callback: (event: Event) => void) => void;
-    static unsubscribe: (callback: (event: Event) => void) => void;
-    static dispatch: (payload?: any) => void;
+    static subscribe: (payload: any, callback: (event: Event) => void) => void;
+    static unsubscribe: (payload: any, callback: (event: Event) => void) => void;
+    static dispatch: (name: string, payload?: any) => void;
 }
