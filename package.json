@@ -1,17 +1,16 @@
 {
-  "version": "0.3.0",
+  "version": "0.3.1",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [
-    "dist",
-    "src"
+    "dist"
   ],
   "engines": {
     "node": ">=10"
   },
   "scripts": {
-    "start": "rm dist && tsdx watch",
+    "start": "rimraf dist && tsdx watch",
     "build": "tsdx build",
     "test": "tsdx test --passWithNoTests",
     "lint": "tsdx lint",
@@ -38,10 +37,10 @@
   "module": "dist/avatar-view.esm.js",
   "devDependencies": {
     "@size-limit/preset-small-lib": "^4.5.5",
-    "@types/react": "^18.0.18",
-    "@types/react-dom": "^18.0.6",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0",
     "rimraf": "^4.1.2",
     "tsdx": "^0.14.1",
     "tslib": "^2.4.0",
@@ -50,9 +49,7 @@
   "dependencies": {
     "@mediapipe/camera_utils": "^0.3.1675466862",
     "@mediapipe/face_mesh": "^0.4.1633559619",
-    "@react-three/drei": "^9.56.25",
-    "@react-three/fiber": "^8.11.2",
-    "@types/three": "^0.144.0",
-    "three": "^0.144.0"
+    "@react-three/drei": "^8.0.0",
+    "@react-three/fiber": "^7.0.0"
   }
 }

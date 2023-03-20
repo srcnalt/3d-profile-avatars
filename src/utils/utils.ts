@@ -1,36 +1,5 @@
-import { Euler, Vector2, Vector3 } from '@react-three/fiber';
+import { Euler } from '@react-three/fiber';
 import { LinearFilter, Material, MathUtils, Object3D } from 'three';
-
-export type AvatarType = '3D' | '2D';
-
-export type Transform = {
-  position?: Vector3;
-  rotation?: Euler;
-  scale?: Vector3;
-};
-
-export type AvatarOptions3D = {
-  camera?: CameraOptions;
-  transform?: Transform;
-  blinkEyes?: boolean;
-  followCursor?: boolean;
-  orbitControl?: boolean;
-  faceTracking?: boolean;
-};
-
-export type AvatarOptions2D = {
-  scale?: Vector2;
-  position?: Vector2;
-}
-
-export type CameraOptions = {
-  fov?: number;
-  far?: number;
-  near?: number;
-  position?: Vector3;
-  rotation?: Euler;
-  scale?: Vector3;
-}
 
 export interface Nodes {
   [name: string]: Object3D;
