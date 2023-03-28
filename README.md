@@ -1,4 +1,5 @@
-[![npm version](https://badge.fury.io/js/%40readyplayerme%2Fpersona.svg)](https://badge.fury.io/js/%40readyplayerme%2Fpersona)
+[![Twitter](https://img.shields.io/twitter/url/https/twitter.com/sgt3v.svg?style=social&label=Follow%20%40sgt3v)](https://twitter.com/sgt3v)
+[![npm version](https://badge.fury.io/js/%40sarge%2Favatar-view.svg)](https://badge.fury.io/js/%40sarge%2Favatar-view)
 
 # 3D Profile Avatars
 
