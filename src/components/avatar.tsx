@@ -1,15 +1,17 @@
 import React, { useEffect } from 'react';
 import { useGLTF } from '@react-three/drei';
-import { dispose, useGraph } from '@react-three/fiber';
+import { useGraph } from '@react-three/fiber';
+import { correctMaterials  } from '../utils/utils';
+import { Options3D, Quality, Transform } from '../types';
+
 import useBlinkEyes from '../utils/useBlinkEyes';
 import useExpressions from '../utils/useExpressions';
-import useFaceTracking from '../utils/useFaceTracking';
 import useFollowCursor from '../utils/useFollowCursor';
-import { AvatarOptions3D, correctMaterials, isSkinnedMesh, Transform } from '../utils/utils';
+// import useFaceTracking from '../utils/useFaceTracking';
 
 interface AvatarProps {
   url: string;
-  options?: AvatarOptions3D;
+  options?: Options3D;
   onLoaded?: () => void;
 }
 
@@ -19,33 +21,37 @@ const defaultTransform: Transform = {
   scale: [1, 1, 1],
 } 
 
-export default function Avatar({
-  url,
-  options,
-  onLoaded,
-}: AvatarProps) {
-  const { scene } = useGLTF(url);
-  const { nodes, materials } = useGraph(scene);
+const blendshapes = [
+  'eyesClosed',
+  'eyeSquintLeft',
+  'eyeSquintRight',
+  'eyeSquintLeft',
+  'mouthFrownRight',
+  'mouthFrownLeft',
+  'browDownRight',
+  'browDownLeft',
+]
 
+export default function Avatar({ url, options, onLoaded }: AvatarProps) {
   const transform = options?.transform;
+  
+  const quality: Quality = options?.quality ? options.quality : 'medium';
+  const url3D = `${url}?useHands=false&quality=${quality}&morphTargets=${blendshapes.join(',')}`
+
+  const { scene } = useGLTF(url3D);
+
+  const { nodes, materials } = useGraph(scene);
 
   useBlinkEyes(options?.blinkEyes);
   useExpressions(nodes);
   useFollowCursor(options?.followCursor, nodes);
-  useFaceTracking(options?.faceTracking, nodes);
-
+  // useFaceTracking(options?.faceTracking, nodes);
+  
   useEffect(() => {
     correctMaterials(materials);
 
     if (onLoaded) onLoaded();
 
-    return () => {
-      Object.values(materials).forEach(dispose);
-
-      Object.values(nodes)
-        .filter(isSkinnedMesh)
-        .forEach(dispose);
-    };
   }, [materials, nodes, url, onLoaded]);
 
   return (

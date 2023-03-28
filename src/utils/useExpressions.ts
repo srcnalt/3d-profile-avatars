@@ -1,11 +1,10 @@
 import { Nodes } from './utils';
 import { useEffect } from 'react';
-import { useFrame } from '@react-three/fiber';
-import { SkinnedMesh } from 'three';
 import { AnimEvent, OnAnimPlayed } from '../events/anim-event';
+import { useFrame, SkinnedMeshProps } from '@react-three/fiber';
 
 let current: any[] = [];
-let headMesh: SkinnedMesh;
+let headMesh: SkinnedMeshProps;
 let duration: number = Number.POSITIVE_INFINITY;
 
 const anims = {
@@ -76,6 +75,9 @@ function update(delta: number) {
     for (let index = 0; index < current.length; index++) {
       const section = current[index];
 
+      if (duration >= 0.5){
+        continue;
+      }
       if (duration < section.duration + section.offset) {
         if (duration > section.offset) {
           const pivot = ((duration - section.offset) / section.duration) * Math.PI;
@@ -105,7 +107,7 @@ function resetTime(event: OnAnimPlayed) {
 
 export default function useExpressions(nodes: Nodes) {
   useEffect(() => {
-    headMesh = (nodes.Wolf3D_Head || nodes.Wolf3D_Avatar) as SkinnedMesh;
+    headMesh = (nodes.Wolf3D_Head || nodes.Wolf3D_Avatar) as SkinnedMeshProps;
     AnimEvent.subscribe(['blink', 'angry'], resetTime);
 
     return () => {

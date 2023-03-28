@@ -1,9 +1,9 @@
 [![Twitter](https://img.shields.io/twitter/url/https/twitter.com/sgt3v.svg?style=social&label=Follow%20%40sgt3v)](https://twitter.com/sgt3v)
 [![npm version](https://badge.fury.io/js/%40sarge%2Favatar-view.svg)](https://badge.fury.io/js/%40sarge%2Favatar-view)
 
-# 3D Profile Avatars 
+# 3D Profile Avatars
 
-Add your website a **3D Profile Avatar** using **Ready Player Me** with a single line of code!
+Add your website a *3D Profile Avatar* using *Ready Player Me* with a single line of code!
 
 Test it on CodeSandbox: https://codesandbox.io/s/avatar-view-wrn2u
 
@@ -18,51 +18,64 @@ Test it on CodeSandbox: https://codesandbox.io/s/avatar-view-wrn2u
 
 ## Example
 
-- First visit https://vr.readyplayer.me and create a half-body avatar.
+- First visit https://readyplayer.me and create a half-body avatar.
 
 - Copy the url of the .glb file of the avatar you created.
 
 - Import `AvatarView` to your file.
 
-- Add `<AvatarView url={url}/>` component yo your return content 
+- Add `<AvatarView type={type} url={url}/>` component yo your return content 
 
 ```tsx
-// if you copy the code here dont forget to remove the three dots
+import { AvatarView } from "@sarge/avatar-view";
 
-import AvatarView from "@sarge/avatar-view";
-
+const type = "3D";
 const url = "https://models.readyplayer.me/62ea7bc28a6d28ec134bbcce.glb";
 
 export default function App()
 {
-  return <AvatarView url={url}/>
+  return <AvatarView type={type} url={url}/>
 }
 ```
 
 If you are using `Next.js` make sure to import the component dynamically using `ssr: false` parameter.
 
 ```tsx
-const AvatarView = dynamic(() => import("@sarge/avatar-view"), {
-  ssr: false
-});
+const AvatarView = dynamic(async () => (await import('@sarge/avatar-view')).AvatarView, { ssr: false })
 ```
 
 ## Parameters of AvatarView
-- **url** (*string*): 
-
-    Url of the Ready Player Me avatar to load. This parameter is mandatory.
-
 - **type** (*"2D" | "3D"*):
 
     Type of the avatar 2D image or 3D model avatar.
+    
+- **url** (*string*): 
+
+    Url of the Ready Player Me avatar to load. This parameter is mandatory.
 
 - **style** (*React.CSSProperties*) [optional]: 
 
     Style of the avatar view canvas. Here you can change the border style, background color or image, width, height and other style options.
 
-- **options3d** (*AvatarOptions3D*) [optional]:
+- **options2D** (*Options2D*) [optional]:
+
+    Options for `type` "2D" avatar.
+
+    - **scale** (*Vector2*) [optional]: 
+    
+        Scale of the 2D avatar image.
+
+    - **position** (*Vector2*) [optional]:
+
+        Position of the 2D avatar in pixels.
+
+- **options3D** (*Options3D*) [optional]:
 
     Options for `type` "3D" avatar.
+
+    - **quality** (*Quality*) [optional]: 
+    
+        Avatar quality option to help reduce the size of the 3D model. Can be `High`, `Medium` or `Low`. 
 
     - **camera** (*CameraOptions*) [optional]: 
     
@@ -84,19 +97,7 @@ const AvatarView = dynamic(() => import("@sarge/avatar-view"), {
     
         Enables use of orbit controls for the 3D scene, which helps you rotate the avatar via mouse drag.
 
-    - **faceTracking** (*boolean*) [optional]:
+- **onLoaded** (void) [optional]: 
 
-        *Experimental feature* for head and face tracking. Requires camera access. 
+    Callback method get notified when 2D or 3D avatar is loaded.
 
-
-- **options3d** (*AvatarOptions3D*) [optional]:
-
-    Options for `type` "2D" avatar.
-
-    - **scale** (*Vector2*) [optional]: 
-    
-        Scale of the 2D avatar image.
-
-    - **position** (*Vector2*) [optional]: test
-
-        Position of the 2D avatar in pixels.

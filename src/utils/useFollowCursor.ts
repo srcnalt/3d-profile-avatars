@@ -1,4 +1,3 @@
-import { Vector2 } from 'three';
 import { useEffect } from 'react';
 import { lerp, mapRange, Nodes } from './utils';
 import { useFrame, useThree } from '@react-three/fiber';
@@ -9,8 +8,8 @@ const eyeRotationOffsetX = 90 * rad;
 let reset: boolean = false;
 let timeout: NodeJS.Timeout;
 
-const targetPos = new Vector2(0, 0);
-const currentPos = new Vector2(0, 0);
+const targetPos = {x: 0, y: 0};
+const currentPos = {x: 0, y: 0};
 
 const setResetTrue = () => {
   timeout = setTimeout(() => {
@@ -47,7 +46,8 @@ export default function useFollowCursor(enabled: boolean | undefined, nodes: Nod
       targetPos.x = mapRange(state.mouse.y, -1, 1, 5 * rad, -5 * rad);
       targetPos.y = mapRange(state.mouse.x, -1, 1, -10 * rad, 10 * rad);
     } else {
-      targetPos.set(0, 0);
+      targetPos.x = 0;
+      targetPos.y = 0;
     }
 
     currentPos.x = lerp(currentPos.x, targetPos.x);
