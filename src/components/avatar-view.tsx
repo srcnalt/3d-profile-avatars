@@ -10,6 +10,8 @@ interface AvatarViewProps {
   options2D?: Options2D;
   options3D?: Options3D;
   onLoaded?: () => void;
+  onFailed?: () => void;
+  fallback?: React.ReactNode;
 }
 
 const defaultStyle: React.CSSProperties = {
@@ -20,12 +22,12 @@ const defaultStyle: React.CSSProperties = {
   backgroundColor: 'orange',
 };
 
-export default function AvatarView({ type, url, style, options3D, options2D, onLoaded }: AvatarViewProps) 
+export default function AvatarView({ type, url, style, options3D, options2D, onLoaded, onFailed, fallback }: AvatarViewProps) 
 {    
   return (
     <div style={{...defaultStyle, ...style}}>
-      {type == '3D' && <ModelContent url={url} options={options3D} onLoaded={onLoaded} />}
-      {type == '2D' && <ImageContent url={url} options={options2D} onLoaded={onLoaded} />}
+      {type == '3D' && <ModelContent url={url} options={options3D} onLoaded={onLoaded} onFailed={onFailed} fallback={fallback} />}
+      {type == '2D' && <ImageContent url={url} options={options2D} onLoaded={onLoaded} onFailed={onFailed} fallback={fallback} />}
     </div>
   );
 }

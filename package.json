@@ -1,5 +1,5 @@
 {
-  "version": "0.3.2-rc.0",
+  "version": "0.3.3-rc.0",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -30,6 +30,8 @@
     "typescript": "^4.9.5"
   },
   "dependencies": {
+    "@mediapipe/camera_utils": "^0.3.1675466862",
+    "@mediapipe/face_mesh": "^0.4.1633559619",
     "@react-three/drei": "^8.0.0",
     "@react-three/fiber": "^7.0.0"
   }

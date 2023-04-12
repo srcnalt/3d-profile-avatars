@@ -97,7 +97,14 @@ const AvatarView = dynamic(async () => (await import('@sarge/avatar-view')).Avat
     
         Enables use of orbit controls for the 3D scene, which helps you rotate the avatar via mouse drag.
 
-- **onLoaded** (void) [optional]: 
+- **onLoaded** (*void*) [optional]: 
 
     Callback method get notified when 2D or 3D avatar is loaded.
 
+- **onFailed** (*void*) [optional]: 
+
+    Callback method get notified when 2D or 3D avatar is failed to load.
+
+- **fallback** (*React.ReactNode*) [optional]: 
+
+    Fallback content to display if avatar fails to load.
