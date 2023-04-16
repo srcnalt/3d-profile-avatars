@@ -1,10 +1,10 @@
 import { Nodes } from './utils';
 import { useEffect } from 'react';
 import { AnimEvent, OnAnimPlayed } from '../events/anim-event';
-import { useFrame, SkinnedMeshProps } from '@react-three/fiber';
+import { useFrame } from '@react-three/fiber';
 
 let current: any[] = [];
-let headMesh: SkinnedMeshProps;
+let headMesh: any;
 let duration: number = Number.POSITIVE_INFINITY;
 
 const anims = {
@@ -107,7 +107,7 @@ function resetTime(event: OnAnimPlayed) {
 
 export default function useExpressions(nodes: Nodes) {
   useEffect(() => {
-    headMesh = (nodes.Wolf3D_Head || nodes.Wolf3D_Avatar) as SkinnedMeshProps;
+    headMesh = nodes.Wolf3D_Avatar;
     AnimEvent.subscribe(['blink', 'angry'], resetTime);
 
     return () => {

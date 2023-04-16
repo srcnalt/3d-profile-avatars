@@ -7,6 +7,7 @@ import { Options3D, Quality, Transform } from '../types';
 import useBlinkEyes from '../utils/useBlinkEyes';
 import useExpressions from '../utils/useExpressions';
 import useFollowCursor from '../utils/useFollowCursor';
+import useFaceTracking from '../utils/useFaceTracking';
 // import useFaceTracking from '../utils/useFaceTracking';
 
 interface AvatarProps {
@@ -22,14 +23,7 @@ const defaultTransform: Transform = {
 } 
 
 const blendshapes = [
-  'eyesClosed',
-  'eyeSquintLeft',
-  'eyeSquintRight',
-  'eyeSquintLeft',
-  'mouthFrownRight',
-  'mouthFrownLeft',
-  'browDownRight',
-  'browDownLeft',
+  'ARKit'
 ]
 
 export default function Avatar({ url, options, onLoaded }: AvatarProps) {
@@ -45,7 +39,7 @@ export default function Avatar({ url, options, onLoaded }: AvatarProps) {
   useBlinkEyes(options?.blinkEyes);
   useExpressions(nodes);
   useFollowCursor(options?.followCursor, nodes);
-  // useFaceTracking(options?.faceTracking, nodes);
+  useFaceTracking(options?.faceTracking, nodes);
   
   useEffect(() => {
     correctMaterials(materials);
