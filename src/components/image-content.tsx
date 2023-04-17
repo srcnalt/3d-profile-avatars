@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
 import { Options2D } from "../types";
-import { ErrorBoundary } from "./error-boundary";
 
 interface ImageContentProps {
   url: string;
@@ -12,6 +11,7 @@ interface ImageContentProps {
 
 export default function ImageContent({ url, options, onLoaded, onFailed, fallback }:ImageContentProps): JSX.Element 
 {
+  const [error, setError] = useState(false);
   const guid = url.substring(url.lastIndexOf("/") + 1).split(".")[0];
   const url2D = `https://api.readyplayer.me/v1/avatars/${guid}.png?cacheControl=true`
 
@@ -20,8 +20,17 @@ export default function ImageContent({ url, options, onLoaded, onFailed, fallbac
       const translate = options?.position ? `translate(${(options.position as number[]).join("px, ")}px) ` : "";
       return scale + translate;
   }
-      
-  return <ErrorBoundary fallback={fallback} onError={onFailed}>
-    <img src={url2D} style={{ width: "100%", height: "100%", transform: generateImageTransform() }} onLoad={onLoaded}/>
-  </ErrorBoundary> 
+
+  const onError = () => {
+    setError(true);
+    onFailed?.();
+  }
+  
+  return <>
+    {
+      error 
+      ? fallback
+      : <img src={url2D} style={{ width: "100%", height: "100%", transform: generateImageTransform() }} onLoad={onLoaded} onError={onError}/>
+    }
+  </>
 }
