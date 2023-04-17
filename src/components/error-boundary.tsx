@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 
-interface ErrorBoundaryProps {
+interface ErrorBoundaryProps extends React.PropsWithChildren<{
   fallback?: React.ReactNode;
   onError?: (error: any) => void;
-}
+}> {}
 
 interface ErrorBoundaryState {
   hasError: boolean;
+  error?: any;
 }
 
 export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
